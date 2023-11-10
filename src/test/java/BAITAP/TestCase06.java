@@ -2,21 +2,18 @@ package BAITAP;
 
 import driver.driverFactory;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 import pom.CheckoutPage;
+import pom.LoginPage;
 
-import java.io.File;
-import java.io.IOException;
 
 @Test
 public class TestCase06 {
     public static void testcase06(){
-        //Init web-driver session
         WebDriver driver = driverFactory.getChromeDriver();
 
         try{
@@ -27,19 +24,19 @@ public class TestCase06 {
             //2. Click on my account link
             driver.findElement(By.xpath("//span[@class='label'][normalize-space()='Account']")).click();
             driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account'][normalize-space()='My Account']")).click();
-
+            
             //3. Login in application using previously created credential
-            driver.findElement(By.id("email")).sendKeys("thotv.t1.1821@gmail.com");
-            driver.findElement(By.id("pass")).sendKeys("123456");
-            driver.findElement(By.id("send2")).click();
-
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.inputEmail("tho2@gmail.com");
+            loginPage.inputPassword("123456");
+            loginPage.clickLoginBtn();
+            
             //4. Click on MY WISHLIST link
             driver.findElement(By.xpath("//div[@class='block-content']//a[normalize-space()='My Wishlist']")).click();
 
-
             //5. In next page, Click ADD TO CART link
-
             driver.findElement(By.xpath("//button[@title='Add to Cart']")).click();
+
             WebElement quantity= driver.findElement(By.xpath("//input[@title='Qty']"));
             quantity.clear();
             quantity.sendKeys("1");
@@ -49,19 +46,23 @@ public class TestCase06 {
             new Select(
                     driver.findElement(By.xpath("//select[@id='country']"))
             ).selectByVisibleText("United States");
+            
             new Select(
                     driver.findElement(By.xpath("//select[@id='region_id']"))
             ).selectByVisibleText("Alabama");
+            
             WebElement postCode=driver.findElement(By.xpath("//input[@id='postcode']"));
             postCode.clear();
             postCode.sendKeys("1111");
 
             //7. Click Estimate
             driver.findElement(By.xpath("//span[contains(text(),'Estimate')]")).click();
+            driver.findElement(By.id("s_method_flatrate_flatrate")).click();
 
             //8. Verify Shipping cost generated
             driver.findElement(By.xpath("//input[@id='s_method_flatrate_flatrate']")).click();
             driver.findElement(By.xpath("//span[contains(text(),'Update Total')]")).click();
+            Thread.sleep(2000);
             WebElement rate=driver.findElement(By.xpath("//label[@for='s_method_flatrate_flatrate']//span[@class='price'][normalize-space()='$5.00']"));
             WebElement pretotal=driver.findElement(By.xpath("//td[@class='a-right']//span[@class='price'][normalize-space()='$615.00']"));
             WebElement totalrate=driver.findElement(By.xpath("//td[@class='a-right']//span[@class='price'][normalize-space()='$5.00']"));
@@ -77,11 +78,12 @@ public class TestCase06 {
 
             AssertJUnit.assertEquals("$620.00",grand);
 
+
             //11. Click "Proceed to Checkout"
             driver.findElement(By.xpath("//li[@class='method-checkout-cart-methods-onepage-bottom']//button[@title='Proceed to Checkout']")).click();
 
             //12a. Enter Billing Information, and click Continue
-//            new Select(driver.findElement(By.cssSelector("#billing-address-select"))).selectByVisibleText("New Address");
+            new Select(driver.findElement(By.cssSelector("#billing-address-select"))).selectByVisibleText("New Address");
             CheckoutPage checkoutPage = new CheckoutPage(driver);
             checkoutPage.inputFirstname("tho");
             checkoutPage.inputMiddlename("van");
@@ -99,23 +101,24 @@ public class TestCase06 {
             checkoutPage.clickContinueBtn();
 
             //12b. Enter Shipping Information, and click Continue
-            driver.findElement(By.xpath("//button[@onclick='shipping.save()']")).click();
-
+//            driver.findElement(By.xpath("//button[@onclick='shipping.save()']")).click();
+            
             // 13. In Shipping Method, Click Continue
+            Thread.sleep(2000);
             WebElement element = driver.findElement(By.xpath("//button[@onclick='shippingMethod.save()']//span//span[contains(text(),'Continue')]"));
             element.click();
-
+            
             // 14. In Payment Information select 'Check/Money Order' radio button. Click Continue
-
-            element = driver.findElement(By.xpath("//label[@for='p_method_checkmo']"));
+            Thread.sleep(2000);
+            element = driver.findElement(By.id("p_method_checkmo"));
             element.click();
-            element = driver.findElement(By.xpath("//button[@onclick='payment.save()']"));
+            element = driver.findElement(By.xpath("//button[@onclick='payment.save()']//span//span[contains(text(),'Continue')]"));
             element.click();
 
             // 15. Click 'PLACE ORDER' button
+            Thread.sleep(2000);
             element = driver.findElement(By.xpath("//button[@title='Place Order']"));
             element.click();
-
 
 
 

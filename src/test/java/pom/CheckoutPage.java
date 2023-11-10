@@ -20,8 +20,10 @@ public class CheckoutPage {
     private By country = By.id("billing:country_id");
     private By telephone = By.id("billing:telephone");
     private By fax = By.id("billing:fax");
-    private By shipping = By.id("billing:use_for_shipping_no");
-    private By continueBtn = By.cssSelector(".button.validation-passed");
+    private By shipping = By.id("billing:use_for_shipping_yes");
+    private By continueBtn = By.xpath("//*[@id=\"billing-buttons-container\"]/button");
+//    private By continueBtn = By.xpath("//button[@onclick='shipping.save()']//span//span[contains(text(),'Continue')]");
+    
 
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
@@ -71,30 +73,37 @@ public class CheckoutPage {
     }
 
     public void inputFirstname(String firstName){
+        firstName().clear();
         firstName().sendKeys(firstName);
     }
 
     public void inputMiddlename(String middleName){
+        middleName().clear();
         middleName().sendKeys(middleName);
     }
 
     public void inputLastname(String lastName){
+        lastName().clear();
         lastName().sendKeys(lastName);
     }
 
     public void inputCompany(String company){
+        company().clear();
         company().sendKeys(company);
     }
 
     public void inputStreet1(String street1){
+        street1().clear();
         street1().sendKeys(street1);
     }
 
     public void inputCity(String city){
+        city().clear();
         city().sendKeys(city);
     }
 
     public void inputStreet2(String street2){
+        street2().clear();
         street2().sendKeys(street2);
     }
 
@@ -106,13 +115,16 @@ public class CheckoutPage {
         new Select(country()).selectByVisibleText(country);
     }
     public void inputZip(String zip){
+        zip().clear();
         zip().sendKeys(zip);
     }
 
     public void inputTelephone(String telephone){
+        telephone().clear();
         telephone().sendKeys(telephone);
     }
     public void inputFax(String fax){
+        fax().clear();
         fax().sendKeys(fax);
     }
     public void inputShipping(){

@@ -23,8 +23,10 @@ public class TestCase04 {
         }
 
         WebDriver driver = driverFactory.getChromeDriver();
+        
         //casting the driver object to the TakesScreenshot interface
         TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+        
         try {
 //        Step 1. Go to http://live.techpanda.org/
             driver.get("http://live.techpanda.org/");
@@ -42,15 +44,15 @@ public class TestCase04 {
                 driver.switchTo().window(handle);
             }
 
-            String heading =  driver.findElement(By.xpath("//h1[normalize-space(🙁'Compare Products']")).getText();
-            System.out.println("ErrorMsg: "+ heading);
+            String heading =  driver.findElement(By.xpath("//h1[normalize-space()='Compare Products']")).getText();
+            
             if(!heading.isEmpty()){
 
                 File screenshot = takesScreenshot.getScreenshotAs(OutputType.FILE);
                 File f = new File(dirPath + "/" + screenshot.getName());
                 FileHandler.copy(screenshot, f);
 
-//                5. Verify the error message
+//              5. Verify the error message
                 AssertJUnit.assertEquals("COMPARE PRODUCTS", heading);
                 driver.close();
             }

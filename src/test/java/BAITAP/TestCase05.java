@@ -3,6 +3,7 @@ import org.testng.annotations.Test;
 import driver.driverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.io.FileHandler;
+import pom.RegisterPage;
 
 import java.io.File;
 
@@ -32,11 +33,10 @@ public class TestCase05 {
             registerPage.inputFirstname("Tran");
             registerPage.inputMiddlename("Van");
             registerPage.inputLastname("Tho");
-            registerPage.inputEmail("05linhnguyen@gmail.com");
+            registerPage.inputEmail("tho4@gmail.com");
             registerPage.inputPassword("123456");
             registerPage.inputConfirmPassword("123456");
             registerPage.clickOnRegisterBtn();
-            //debug purpose only
 
             //5. Verify Registration is done. Expected account registration done.
             File screenshot = takesScreenshot.getScreenshotAs(OutputType.FILE);
@@ -44,7 +44,7 @@ public class TestCase05 {
             FileHandler.copy(screenshot, f);
 
             //6. Go to TV menu
-            driver.findElement(By.xpath("//a[normalize-space(🙁'TV']")).click();
+            driver.findElement(By.xpath("//a[normalize-space()='TV']")).click();
 
             //7. Add product in your wish list - use product - LG LCD
             driver.findElement(By.xpath("//li[1]//div[1]//div[3]//ul[1]//li[1]//a[1]")).click();
@@ -55,11 +55,11 @@ public class TestCase05 {
             //9. In next page enter Email and a message and click SHARE WISHLIST
             WebElement email = driver.findElement(By.xpath("//textarea[@id='email_address']"));
             email.click();
-            email.sendKeys("lili123@gmail.com");
+            email.sendKeys("tho1@gmail.com");
 
             WebElement msg =  driver.findElement(By.xpath("//textarea[@id='message']"));
             msg.click();
-            msg.sendKeys("so good!!");
+            msg.sendKeys("great!");
 
             driver.findElement(By.xpath("//span[contains(text(),'Share Wishlist')]")).click();
 

@@ -13,25 +13,25 @@ import java.io.File;
 public class TestCase07 {
     @Test
     public static void testcase07(){
-        //Init web-driver session
         WebDriver driver = driverFactory.getChromeDriver();
+        
         try{
-//        Step 1
+//          Step 1 Go to http://live.techpanda.org/
             driver.get("http://live.techpanda.org/");
-//      Step 2
+            
+//          Step 2 Click on My Account link
             driver.findElement(By.xpath("//span[@class='label'][normalize-space()='Account']")).click();
             driver.findElement(By.xpath("//div[@id='header-account']//a[@title='My Account'][normalize-space()='My Account']")).click();
 
-//        Step 3
+//          Step 3 Login in application using previously created credential
             driver.findElement(By.id("email")).sendKeys("quangtnse171198@gmail.com");
             driver.findElement(By.id("pass")).sendKeys("123456");
             driver.findElement(By.id("send2")).click();
 
-//        Step 4
+//          Step 4 Click on 'My Orders'
             driver.findElement(By.xpath("//a[normalize-space()='My Orders']")).click();
-//            5. In next page, Click ADD TO CART link
-//
-
+            
+//          Step  5 Click on 'View Order'
             driver.findElement(By.xpath("//a[normalize-space()='View Order']")).click();
 
             driver.findElement(By.xpath("//a[@class='link-print']")).click();
@@ -46,15 +46,9 @@ public class TestCase07 {
             File f = new File(dirPath + "/" + screenshot.getName());
             FileHandler.copy(screenshot, f);
 
-
-
-
-
-
         }catch (Exception e) {
             e.printStackTrace();
         }
-        //Quit browser session
         driver.quit();
     }
 }

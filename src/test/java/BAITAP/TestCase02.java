@@ -4,11 +4,14 @@ import driver.driverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
 
 import java.util.Objects;
 
 public class TestCase02 {
-    public static void main(String[] args) {
+    
+    @Test
+    public static void testcase02() {
         WebDriver driver = driverFactory.getChromeDriver();
 
 //        Step 1. Go to http://live.techpanda.org/
